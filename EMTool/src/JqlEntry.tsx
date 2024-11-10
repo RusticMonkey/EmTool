@@ -5,52 +5,56 @@ type JQLInputProps = {
 };
 
 const JQLInput: React.FC<JQLInputProps> = ({ onSubmit }) => {
-  const [query, setQuery] = useState('');
+    const [query, setQuery] = useState('');
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setQuery(event.target.value);
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    if (query.trim()) {
-      onSubmit(query);
-      setQuery('');
-    }
-  };
+    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setQuery(event.target.value);
+    };
+  
+    const handleSubmit = (event: React.FormEvent) => {
+      event.preventDefault();
+      if (query.trim()) {
+        onSubmit(query); // Call the onSubmit prop with the query
+        setQuery(''); // Clear the input after submission
+      }
+    };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px',
-        width: '100%', // Ensures the form takes full width
-        maxWidth: '100%',
-        overflow: 'hidden', // Prevent overflow of content outside form
-        padding: '8px', // Optional padding for spacing
-        boxSizing: 'border-box',
-      }}
-    >
-      <label htmlFor="jql-input" style={{ whiteSpace: 'nowrap', minWidth: '80px' }}>Enter JQL:</label>
-      <textarea
-        id="jql-input"
-        value={query}
-        onChange={handleChange}
-        placeholder="e.g., project = 'MYPROJECT' AND status = 'Open'"
-        rows={1}
+    <div>
+      <form
+        onSubmit={handleSubmit}
         style={{
-          flexGrow: 1, // Ensure it takes remaining space
-          minWidth: 0, // Allow textarea to shrink properly
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          width: '100%',
+          maxWidth: '100%',
+          overflow: 'hidden',
           padding: '8px',
-          fontSize: '1rem',
-          maxWidth: '80%', // Ensure it stays within form width
-          boxSizing: 'border-box', // Adjust for padding
+          boxSizing: 'border-box',
         }}
-      />
-      <button type="submit" style={{ whiteSpace: 'nowrap' }}>Submit</button>
-    </form>
+      >
+        <label htmlFor="jql-input" style={{ whiteSpace: 'nowrap', minWidth: '80px' }}>
+          Enter JQL:
+        </label>
+        <textarea
+          id="jql-input"
+          value={query}
+          onChange={handleChange}
+          placeholder="e.g., project = 'MYPROJECT' AND status = 'Open'"
+          rows={1}
+          style={{
+            flexGrow: 1,
+            minWidth: 0,
+            padding: '8px',
+            fontSize: '1rem',
+            maxWidth: '80%',
+            boxSizing: 'border-box',
+          }}
+        />
+        <button type="submit" style={{ whiteSpace: 'nowrap' }}>Submit</button>
+      </form>
+    </div>
   );
 };
 
